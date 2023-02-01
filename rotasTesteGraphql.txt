@@ -1,0 +1,37 @@
+query{
+  users{
+    id
+    name
+    email
+  }
+}
+
+mutation{
+  createUser(
+    data:{
+   		name: "Alexandre"
+      email: "alexandre@gmail.com"
+  }){
+    id
+    name
+    email
+  }
+}
+
+mutation{
+  updateUser(
+    id: "1"
+    data: {
+      name: "Outro"
+      email: "outro@email.com"
+    }
+  ){
+    id
+    name
+    email
+  }
+}
+
+mutation{
+  deleteUser(id: "2")
+}

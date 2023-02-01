@@ -1,0 +1,76 @@
+1- Criar projeto Nest
+    nest new "project-name"
+
+2- Instalar typeorm e postgres
+    npm install --save @nestjs/typeorm typeorm pg
+
+3- Importar o typeorm para app module
+
+4- Cria o ormconfig.json na raiz do projeto e coloca as configurações do banco
+
+5- Instalar graphql
+    npm i @nestjs/graphql graphql-tools graphql
+
+6- Instalar apollo server express
+    npm i apollo-server-express
+
+7- Importar o graphql modulo para o app module
+    colocando as configuração para adicionar ao schema as querys e mutations criadas
+
+8- Cria o modulo de usuario
+    nest g module user
+
+9- Cria o service do usuario
+    nest g service user
+
+10- Cria o resolver do usuario
+    nest g resolver user
+
+11- Cria um arquivo entity dentro da pasta user user.entity.ts
+    O arquivo contem todos os campos que irá refletir na tabela do banco de dados
+
+12- Informa que é um objeto do graphql @ObjectType()
+    Informa que é uma entidade @Entity()
+    Informa que é uma coluna para o typeorm @PrimaryGeneratedColumn
+    Informa para o typeorm que é uma coluna @Column
+    Informa para o graphql que é um campo @Field
+    especifica o tipo do @Field nesse caso tipo id @Field(() => ID)
+    Para os tipos diferente de ID, string utiliza o plugin do graphql
+        "compilerOptions": {
+            "plugins": ["@nestjs/graphql/plugin"]
+        }
+
+13- Cria a pasta dto e os arquivos dtos
+    DTO é utilizando para transferir dados nas diferentes camadas da aplicação
+
+14- instalar o class validator para validar os dados com notations
+        npm i class-validator
+        npm i class-transformer
+
+15- Informa no arquivo create-user.input.ts quais parametros vai receber na 
+    hora de cadastrar o usuario.
+    Informa ao graphql que é um @InputType
+    Faz as validações via notation ex: @IsString()
+
+16- O userService conta com o @Injectable que é a injeção de dependencia do nest
+    com isso é possivel injetar essa classe em outros modulos.
+    O repository é uma classe do typeorm que disponibilisa alguns metodos para trabalhar 
+    com o banco de dados create, update, select, delete
+
+17- O user.resolver é o equivalente ao controller do rest api
+    no construtor é injetado o service.
+    nos parametros da função é usado a notatio @Args que indica q esse é 
+    um campo que foi criado la no dto
+    A @Mutation esta indicando que esse metodo é uma mutation de usuario
+
+18- em user.module é preciso importar o TypeOrmModule
+
+19- No user.service é preciso criar um metodo do tipo query e injetalo na resolver.
+    Por padrão o graphql obriga a ter pelo meno uma query no resolver
+
+20- instalar o apollo driver e passar o driver na configuração do app.module
+    npm install @nestjs/apollo
+
+21- Precisa falar pro nest para as validações serem globais
+    no arquivo main precisa adicionar app.useGlobalPipes(new ValidationPipe)
+
